@@ -66,7 +66,7 @@ int main()
 	const int size = 10;
 	int ar[size] = { 4,3,211,13,34,21,-443,32,0,45 };
 
-	ar[size - 1] = 200000;
+	
 	display(ar, size);
 	quicksort(ar, 0, size - 1);
 	display(ar, size);
