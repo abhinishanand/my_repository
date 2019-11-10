@@ -1,0 +1,54 @@
+#include<iostream>
+using namespace std;
+
+int comparison = 0;
+void swap(int& a, int& b)
+{
+	comparison++;
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void display(int* ar, const int size)
+{
+	for (int i = 0; i < size; i++)
+		cout << ar[i] << " ";
+
+	cout << endl;
+}
+
+int tcomp = 0;
+void insertion_sort(int* ar, int size)
+{
+
+	for (int i = 1; i < size; i++)
+	{
+		for (int j = i; j > 0; j--)
+		{
+			tcomp++;
+			if (ar[j] < ar[j - 1])
+			{
+				
+				swap(ar[j], ar[j - 1]);
+			}				
+			else
+				break;
+		}
+		display(ar, size);
+	}
+}
+
+
+
+int main()
+{
+	const int size = 10;
+	int ar[size] = { 0,1,2,3,4,5,6,7,8,9 };
+	display(ar, size);
+	insertion_sort(ar, size);
+	//display(ar, size);
+
+	cout << "Time complexity = " << tcomp <<"  #comparisons = "<< comparison <<endl;
+
+	return 0;
+}
