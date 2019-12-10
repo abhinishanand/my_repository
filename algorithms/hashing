@@ -1,0 +1,130 @@
+#include<iostream>
+using namespace std;
+
+void display(int ar[], int size)
+{
+    cout<<"Array :\n";
+	for(int i=0;i<size;i++)
+	cout<<ar[i]<<" ";
+}
+
+class node
+{
+    public:
+    int value;
+    node *next;
+
+    node()
+    {
+        node *ptr = new node;
+        ptr->next = NULL;
+    }
+    node(int x)
+    {
+        node *ptr = new node;
+        ptr->value = x;
+        ptr->next = NULL;
+    }
+};
+//separate chaining hash table
+class hashtable
+{
+  node *ht;
+  int htsize;
+  public:
+
+  hashtable(int size, int ar[])  //copy the a2 in hashtable first column
+  {
+      htsize = size+1;
+      int i;
+      ht = new node[size+1];
+      for(i=0;i<size;i++)
+      {
+          ht[i].value = ar[i];
+      }
+      ht[i].value = -1;
+  }
+
+  void insert(int num)
+  {
+      int value_inserted=0;
+      for(int i=0;i<htsize;i++)
+      {
+          if(num == ht[i].value)
+          {
+              node *temp = new node(num);
+              for(node ctr = ht[i]; ctr.next!= NULL; ctr=ctr.next);
+              ctr.next  = temp;
+              value_inserted = 1;
+          }
+
+          if(value_inserted == 0)
+          {
+              for(node ctr = ht[htsize-1]; ctr.next!= NULL; ctr=ctr.next)
+              {
+                  if(num >= ctr.value && ctr.next==NULL)
+                  {
+                      node *temp = new node(num);
+                      ctr.next = temp;
+                  }
+
+                  if(num >= ctr.value && num < ctr.next.value )
+                  {
+                      node *temp = new node(num);
+                      node *temp2 = ctr.next;
+                      ctr.next = temp;
+                      temp->next = temp2;
+                  }
+
+              }
+          }
+
+      }
+  }
+
+
+  void display()
+  {
+      for(int i=0;i<htsize;i++)
+      {
+          for(node temp = ht[i]; temp! = NULL; temp = temp.next)
+          cout<<temp.value<<" ";
+      }
+  }
+
+
+
+
+
+};
+
+int main()
+ {
+
+	int ntestcase;
+	cin>>ntestcase;
+	int n,m;
+	cin>>n>>m;
+	int a1[n], a2[m];
+	for(int i=0;i<n;i++)
+	cin>>a1[i];
+
+	for(int i=0;i<m;i++)
+	cin>>a2[i];
+
+
+	hashtable h(m, a2[]);
+
+	for(int i=0;i<n;i++)
+	 h.insert(a1[i]);
+
+
+
+	h.display();
+
+
+
+
+
+	return 0;
+}
